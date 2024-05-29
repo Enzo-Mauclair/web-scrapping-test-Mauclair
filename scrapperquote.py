@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
 # URL de base du site de citations
 BASE_URL = "https://quotes.toscrape.com"
@@ -35,10 +36,22 @@ def scrape_quotes(pages=5):
 
     return all_quotes
 
+def save_quotes_to_csv(quotes, filename="results.csv"):
+    """
+    Sauvegarde les citations dans un fichier CSV
+    """
+    with open(filename, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Citation", "Tags"])  # Écrire l'en-tête
+        for quote in quotes:
+            writer.writerow([quote['text'], ', '.join(quote['tags'])])
+
 if __name__ == "__main__":
     quotes = scrape_quotes()
-    for quote in quotes:
-        print(f"Citation: {quote['text']}\nTags: {', '.join(quote['tags'])}\n")
+    save_quotes_to_csv(quotes)
+    print(f"Les citations ont été sauvegardées dans le fichier results.csv")
+
+
 
 
 
