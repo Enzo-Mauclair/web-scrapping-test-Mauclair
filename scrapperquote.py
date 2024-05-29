@@ -7,7 +7,7 @@ BASE_URL = "https://quotes.toscrape.com"
 # URL de connexion
 LOGIN_URL = "https://quotes.toscrape.com/login"
 # Liste des tags à récupérer
-TARGET_TAGS = ["love", "inspirational", "life", "humor"]
+TARGET_TAGS = ["love", "inspirational", "life", "humor", "books"]
 # Informations de connexion
 LOGIN_DATA = {
     'username': 'test',
@@ -63,6 +63,13 @@ def scrape_quotes(pages=5, session=None):
         quotes = get_quotes_from_page(page_num, session)
         all_quotes.extend(quotes)
 
+    # Ajouter spécifiquement les 2 premières pages avec le tag 'books'
+    for page_num in range(1, 3):
+        quotes = get_quotes_from_page(page_num, session)
+        for quote in quotes:
+            if "books" in quote['tags']:
+                all_quotes.append(quote)
+
     return all_quotes
 
 def save_quotes_to_csv(quotes, token, filename="results.csv"):
@@ -84,6 +91,5 @@ if __name__ == "__main__":
         print(f"Les citations et le token ont été sauvegardés dans le fichier results.csv")
     else:
         print("Impossible de récupérer le token. Vérifiez les informations de connexion.")
-
 
 
