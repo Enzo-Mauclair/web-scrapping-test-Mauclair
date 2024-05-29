@@ -1,0 +1,24 @@
+1 J'installe Python 3 et J'installe les bibliothèques nécessaires : 
+pip3 install requests beautifulsoup4
+
+2 Je définis les constantes, les urls où je veux scrapper.
+
+3 J'analyse gràce à l'inspecteur sur chrome quels sont les 4 tags que je souhaite scrapper et où ils se trouvent, savoir comment ils s'appellent dans le code html.
+
+
+4 J'analyse aussi comment je peux passer d'une page à une autre à travers le code, ici nous l'avons trouver par l'ajout dans l'url de /page/(numéro de page)
+
+5 Pour récuperer la page j'envoie une requête GET pour récupérer le contenu de la page.
+6 Ensuite je parse le contenu avec Beautifulsoup pour extraire les citations et les tags.
+
+7 Je vais créer une boucle qui va permettre de parcourir les pages que je souhaite scrapp. 
+
+8 Pour verifier mes resultats j'importe dans un csv les resultats obtenu.
+
+9 Je vérifie qu'il ny a pas d'erreur en vérifiant que toutes les citations sont bien prises.
+
+10 Je donne des informations de login et je vais chercher le token, si le token n'est pas récuperer il ne s'affichera pas dans le code.
+
+11 Pour ajouter les deux premières pages de citations et tag ayant le tag book je vais creer une deuxieme boucle dans ma fonction qui va chercher les citations, cette boucle ne passe que sur les deux premières pages et doive en plus avoir le tag book et je les récupère 
+
+12 Je rajoute un ensemble "seen_quotes" qui me permet de vérifier si la citation est déja présente avant de l'ajouter dans mon csv. 
