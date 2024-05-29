@@ -59,16 +59,21 @@ def scrape_quotes(pages=5, session=None):
     Scrape les citations des premières pages spécifiées et les filtre selon les tags
     """
     all_quotes = []
+    seen_quotes = set()
     for page_num in range(1, pages + 1):
         quotes = get_quotes_from_page(page_num, session)
-        all_quotes.extend(quotes)
+        for quote in quotes:
+            if quote['text'] not in seen_quotes:
+                all_quotes.append(quote)
+                seen_quotes.add(quote['text'])
 
     # Ajouter spécifiquement les 2 premières pages avec le tag 'books'
     for page_num in range(1, 3):
         quotes = get_quotes_from_page(page_num, session)
         for quote in quotes:
-            if "books" in quote['tags']:
+            if "books" in quote['tags'] and quote['text'] not in seen_quotes:
                 all_quotes.append(quote)
+                seen_quotes.add(quote['text'])
 
     return all_quotes
 
@@ -91,5 +96,4 @@ if __name__ == "__main__":
         print(f"Les citations et le token ont été sauvegardés dans le fichier results.csv")
     else:
         print("Impossible de récupérer le token. Vérifiez les informations de connexion.")
-
 
